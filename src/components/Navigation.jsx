@@ -207,6 +207,10 @@ export const navigation = [
       { title: 'Items', href: '/items' },
       { title: 'Customer', href: '/customers' },
       { title: 'Supplier', href: '/suppliers' },
+      { title: 'Expedition', href: '/expeditions' },
+      { title: 'Allocation', href: '/allocatons' },
+      { title: 'Manufacture - Machine', href: '/manufacture-machine' },
+      { title: 'Manufacture - Process', href: '/manufacture-process' },
     ],
   },
 ]
