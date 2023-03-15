@@ -1,0 +1,263 @@
+export const description =
+  'On this page, we’ll dive into the different user endpoints you can use to manage users programmatically.'
+
+# Users
+
+Master Users
+
+## The user model
+
+The user model contains all the information about your users.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the user.
+  </Property>
+  <Property name="name" type="string">
+    The name for the user.
+  </Property>
+  <Property name="permissions" type="array<string>">
+    The array of allowed permission name for the user.
+  </Property>
+  <Property name="createdBy" type="string">
+    User identifier who create user.
+  </Property>
+  <Property name="createdBy" type="string">
+    User identifier who update user.
+  </Property>
+  <Property name="createdAt" type="timestamp">
+    Timestamp of when the user was created.
+  </Property>
+  <Property name="updatedAt" type="timestamp">
+    Timestamp of when the user was updated.
+  </Property>
+</Properties>
+
+---
+
+## List all users {{ tag: 'GET', label: '/v1/users' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your users. By default, a maximum of ten users are shown per page.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="page" type="integer">
+        The page number of users returned.
+      </Property>
+      <Property name="pageSize" type="integer">
+        The page size number of users returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/users">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/users', {
+      params: {
+        filter: {
+          page:1,
+          pageSize: 10
+        }
+      }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "users": [
+        {
+          "_id": "637b569149e0c02e1036c35a",
+          "name": "Super Admin",
+          "permissions": ["create-user", "read-user-user"],
+          "createdBy": "637d83d15d2be122007524bf",
+          "createdAt": "2022-01-01T00:00:00.000Z",
+        },
+        {
+          "_id": "637d83d15d2be122007524bf",
+          "name": "Manager",
+          "permissions": ["create-user", "read-user-user"],
+          "createdBy": "637d83d15d2be122007524bf",
+          "createdAt": "2022-01-01T00:00:00.000Z",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 2
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Create a user {{ tag: 'POST', label: '/v1/users' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to add a new user.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="name" type="string">
+        The name for the user.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/users">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.post('/v1/users', {
+      name: "Administrator"
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '201' }}
+    {
+      "id": "637d83d15d2be122007524bf"
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Retrieve a user {{ tag: 'GET', label: '/v1/users/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to retrieve a user by providing their id.
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/users/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/users/637d83d15d2be122007524bf')
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "_id": "637d83d15d2be122007524bf",
+      "name": "Manager",
+      "permissions": ["create-user", "read-user-user"],
+      "createdBy": "637d83d15d2be122007524bf",
+      "createdAt": "2022-01-01T00:00:00.000Z",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Update a user {{ tag: 'PATCH', label: '/v1/users/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a user.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="name" type="string">
+        The name for the user.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="PATCH" label="/v1/users/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.patch('/v1/users/637d83d15d2be122007524bf', {
+      name: "Administrator"
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Delete a user {{ tag: 'DELETE', label: '/v1/users/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete users from your user list.
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/users/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.delete('/v1/users/637d83d15d2be122007524bf')
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Assign permissions {{ tag: 'PATCH', label: '/v1/users/:id/assign-permissions' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a user to assign permission.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="permissions" type="array<string>">
+        The array of permission name for the user.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="PATCH" label="/v1/users/637d83d15d2be122007524bf">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.patch('/v1/users/637d83d15d2be122007524bf', {
+      permissions: [
+        {
+          name: 'create-user',
+          assign: true
+        },
+        {
+          name: 'read-user',
+          assign: false
+        }
+      ]
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '204' }}
+    // empty response
+    ```
+    </CodeGroup>
+  </Col>
+</Row>

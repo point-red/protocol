@@ -1,0 +1,91 @@
+export const description =
+  'On this page, we’ll dive into the different permission endpoints you can use to manage permissions programmatically.'
+
+# Permissions
+
+Master Permissions
+
+## The permission model
+
+The permission model contains all the information about your roles.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the permission.
+  </Property>
+  <Property name="group" type="string">
+    The group name for the permission. It used for grouping permission on the web
+  </Property>
+  <Property name="name" type="string">
+    The name for the permission.
+  </Property>
+</Properties>
+
+---
+
+## List all permissions {{ tag: 'GET', label: '/v1/permissions' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your roles. By default, a maximum of ten roles are shown per page.
+
+    ### Optional query
+
+    <Properties>
+      <Property name="group" type="string">
+        The group name for the permission. It used for grouping permission on the web
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/permissions">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/permissions', {
+      params: {
+        filter: {
+          group: 'users',
+        }
+      }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "permissions": [
+        {
+          "_id": "637b569149e0c02e1036c35a",
+          "group": "user",
+          "name": "create-user",
+        },
+        {
+          "_id": "637d83d15d2be122007524bf",
+          "group": "user",
+          "name": "read-user",
+        },
+        {
+          "_id": "637d83d15d2be122007524da",
+          "group": "user",
+          "name": "update-user",
+        },
+        {
+          "_id": "637d83d15d2be122007524cc",
+          "group": "user",
+          "name": "delete-user",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 4
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
